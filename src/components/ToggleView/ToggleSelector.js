@@ -40,6 +40,7 @@ const ToggleSelector = ({ className }) => {
       css={css`
         display: grid;
         place-items: center;
+        margin-right: 1.5rem;
       `}
       className={className}
     >
