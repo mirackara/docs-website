@@ -120,14 +120,19 @@ Scripted browser monitors are dynamic monitors that can conditionally respond to
         Your monitor can wait an interval before reporting a failure, since some images or dynamic elements can take time to generate.
 
         ```js
-        $webDriver.get("http://telco.nrdemo.com/").then(function(){
-            return $webDriver.findElement($selenium.By.id("supportDropDown")).click();
-        }).then(function(){
-        //Wait up to 20000 seconds for the FAQ page to appear
-            return $webDriver.waitForAndFindElement($selenium.By.id("supportFAQLink"), 20000).then(function(aboutPage){
-                return aboutPage.click();
-            })
-        });
+async function waitForAndFindElement(locator, timeout){
+  const element = await $webDriver.wait($selenium.until.elementLocated(locator), timeout, 'Timed-out waiting for element to be located using: '+locator);
+  await $webDriver.wait($selenium.until.elementIsVisible(element), timeout, 'Timed-out waiting for element to be visible using ${element}');
+  return await $webDriver.findElement(locator);
+}
+
+await $webDriver.get("http://telco.nrdemo.com/")
+
+await $webDriver.findElement($selenium.By.id("supportDropDown")).click();
+
+//Wait up to 20000 seconds for the FAQ page to appear
+let aboutPage = await waitForAndFindElement($selenium.By.id("supportFAQLink"), 20000)
+await aboutPage.click();
         ```
 		</TabsPageItem>
         <TabsPageItem id="login">
