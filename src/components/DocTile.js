@@ -182,6 +182,9 @@ export const DocTiles = ({
   numbered = false,
   variant = 'default',
 }) => {
+  if (!Array.isArray(children)) {
+    children = [children];
+  }
   const trails = useTrail(children.length, {
     config: SPRING,
     from: { opacity: 0, y: 124 },
