@@ -10,6 +10,7 @@ import {
 import { useToggleViewContext } from './ToggleViewContext';
 
 import Tooltip from '../Tooltip';
+import usePosition from '../../hooks/usePosition';
 
 const SAVED_TOGGLE_VIEW_KEY = 'docs-website/homepage-selected-view';
 export const TOGGLE_VIEWS = {
@@ -23,6 +24,7 @@ const ToggleSelector = ({ className }) => {
   const [currentView, setCurrentView] = useToggleViewContext();
   const tessen = useTessen();
   const { t } = useTranslation();
+  const [anchorRef, { left, top }] = usePosition();
 
   /* this check prevents the tooltip from continuing to show
    * on each render of the defaultview if it's triggered
@@ -43,6 +45,7 @@ const ToggleSelector = ({ className }) => {
         margin-right: 1.5rem;
       `}
       className={className}
+      ref={anchorRef}
     >
       <div
         css={css`
@@ -72,8 +75,8 @@ const ToggleSelector = ({ className }) => {
           <Tooltip
             css={css`
               position: absolute;
-              bottom: 150%;
-              left: -50px;
+              top: calc(${top}px - var(--height) - 12px);
+              left: calc(${left}px - 64px);
               & p:nth-of-type(2) {
                 font-size: 12px;
               }
