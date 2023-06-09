@@ -120,7 +120,7 @@ module.exports = {
         wrapChildren: false,
       }),
   },
-  WARNING: {
+  CONTRIBUTOR_NOTE: {
     deserialize: deserializeComponent,
     serialize: (h, node) =>
       serializeComponent(h, node, {
