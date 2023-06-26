@@ -12,8 +12,12 @@ const GQL_QUERY = `
       dataDictionary {
         events(names: "PageView") {
           name
+          definition(format: HTML)
+          dataSources {
+            name
+          }
           attributes {
-            definition
+            definition(format: HTML)
             name
             units {
               label
